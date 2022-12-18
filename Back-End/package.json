@@ -21,6 +21,7 @@
     "express-jwt-authz": "^2.4.1",
     "jsonwebtoken": "^8.5.1",
     "jwks-rsa": "^3.0.0",
+    "mercadopago": "^1.5.14",
     "morgan": "^1.10.0",
     "pg": "^8.8.0",
     "sequelize": "^6.26.0"
