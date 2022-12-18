@@ -1,25 +1,16 @@
-const { DataTypes } = require('sequelize');
-
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-
-  sequelize.define('UserRol', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true
+  sequelize.define(
+    "UserRol",
+    {
+      name: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isAlpha: true
-      }, 
-    },
-  },
-  {
-    timestamps: false,
-    createdAt: false,
-    updatedAt: false
-  });
+    {
+      timestamps: false,
+    }
+  );
 };

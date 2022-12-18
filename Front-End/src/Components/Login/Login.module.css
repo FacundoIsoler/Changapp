@@ -14,18 +14,19 @@
     height: 2.5em;
     margin-top: -10%;
     margin-left: 0.5em;
+    border-radius: 50%;
 }
 
 
 .buttonLogin{
-    background-image: url(../../Images/Log\ in.png);
+    /* background-image: url(../../Images/Log\ in.png);
     background-repeat: no-repeat;
   background-position-x: center;
-  background-position-y: top;
+  background-position-y: top; */
   /* background-color: black; */
-  background-size: 2.2em;
-  width: 2.6em;
-  height: 2.6em;
+  /* background-size: 2.2em; */
+  /* width: 2.6em; */
+  /* height: 2.6em; */
   background-color: transparent;
   border: transparent;
 }

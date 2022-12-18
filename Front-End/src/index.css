@@ -11,3 +11,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+/* MercadoPago Style Integration */
+/* Delete this once you can avoid the re render of the MercadoPagoProductComponent */
+.cho-container>button:not(:first-child) {
+  display: none;
+}

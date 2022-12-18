@@ -31,17 +31,17 @@ conn
     rols.forEach(async (rol) => await UserRol.create(rol));
     //Users
     users.forEach(async (user) => {
+      let { userName } = user;
       let userBD = await User.create(user);
-      let userName = userBD.dataValues.userName;
-      if (
-        userName === "Nicolas" ||
-        userName === "Kevin" ||
-        userName === "Nadia"
-      ) {
-        await userBD.setUserRol(3);
-      } else {
-        await userBD.setUserRol(2);
-      }
+
+      const roles = {
+        Nadia: "Admin",
+        Kevin: "Supplier",
+        Sandra: "SuperAdmin",
+      };
+
+      await userBD.setUserRol(roles[userName] ?? "User");
+
       await userBD.setDetail(1);
     });
     //ProveedoresLimpieza S.A.
@@ -87,8 +87,7 @@ conn
         await serviceBD.setCategory(14);
       }
 
-
-/*
+      /*
 const ids = await Supplier.findAll({
   where: {
       description : {
@@ -115,16 +114,16 @@ const ids = await Supplier.findAll({
         await serviceBD.addSupplier(supplietUUID[2]);
       }
 
-      const userReviewer = await User.findOne();
+      // const userReviewer = await User.findOne();
 
-      for (let i = 0; i < 5; i++) {
-        let newReview = await Review.create({
-          comment: "something",
-          rating: parseFloat((Math.random() * 5).toFixed(1)),
-        });
-        await newReview.setUser(userReviewer);
-        await serviceBD.addReview(newReview);
-      }
+      // for (let i = 0; i < 5; i++) {
+      //   let newReview = await Review.create({
+      //     comment: "something",
+      //     rating: parseFloat((Math.random() * 5).toFixed(1)),
+      //   });
+      //   await newReview.setUser(userReviewer);
+      //   await serviceBD.addReview(newReview);
+      // }
     });
   })
   .then(() => {
