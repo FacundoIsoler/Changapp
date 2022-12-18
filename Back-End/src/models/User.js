@@ -11,10 +11,10 @@ module.exports = (sequelize) => {
       },
       userName: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          isAlpha: true,
-        },
+        // allowNull: false,
+        // validate: {
+        //   isAlpha: true,
+        // },
       },
       passWord: {
         type: DataTypes.STRING,

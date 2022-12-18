@@ -15,11 +15,11 @@ router.post("/login", async (req, res, next) => {
     event?.client?.client_id !== AUTH0_CLIENT_ID ||
     !event.user
   )
-    return res.status(401);
+    return res.status(401).send();
 
   // Chequeamos que la request tenga user y user_id
   const { user_id, email } = event.user;
-  if (!user_id || !email) return res.status(400);
+  if (!user_id || !email) return res.status(400).send();
 
   let [loginStrategy, loginId] = user_id.split("|");
 
