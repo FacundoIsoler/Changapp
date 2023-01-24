@@ -1,6 +1,8 @@
 const { Router } = require("express");
+const { uploadMulter, uploadImage } = require ('../controllers/cloudinaryController');
+const fs = require("fs-extra");
 const router = Router();
-const { Detail,  User, UserRol} = require("../db.js");
+const { Detail,  User, UserRol, Contract} = require("../db.js");
 
 router.get("/", async (req, res) => {
   const { id } = req.query;
@@ -13,7 +15,8 @@ router.get("/", async (req, res) => {
           },
           include: [
             { model: Detail }, 
-            { model: UserRol }
+            { model: UserRol },
+            { model: Contract}
         ],
         });
         res.status(200).json(result)
@@ -27,12 +30,17 @@ router.get("/", async (req, res) => {
         res.status(200).json(result)
     }
   } catch (error) {
+    console.log(error)
     res.status(500).send("Hubo un error en el servidor")
   }
 });
 
 router.put("/", async (req, res) => {
+    
+  console.log(req.body);
+
   const { idModified, idPetitioner, userName, passWord, age, location, adress, phoneNumber, eMail, UserRolBody } = req.body;
+
   try {
     const userBDModified = await User.findAll({
         where: {
@@ -76,6 +84,7 @@ router.put("/", async (req, res) => {
             }
         })
     }
+
     //Update Details
     if (location) {
         await Detail.update({

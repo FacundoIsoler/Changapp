@@ -3,7 +3,7 @@
 }
 
 .container{
-  background-color: rgb(55, 54, 54);
+  background-color: rgb(159, 158, 158);
   position: fixed;
   z-index: 1000;
   background-size: 100%;
@@ -35,7 +35,7 @@
 
 .active .link{
   /* background-color: black; */
-  color:rgb(33, 120, 249)
+  color:rgb(0, 0, 0);
 }
 
 .nav_right{

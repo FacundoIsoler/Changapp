@@ -51,94 +51,104 @@ const roles = {
 let suppliersIDs = [];
 
 conn
-  .sync({ force: true })
-  .then(async () => {
-    // some code
-    await Detail.bulkCreate(details);
-    await Category.bulkCreate(categories);
-    await UserRol.bulkCreate(rols);
+  .sync({ force: false })
+  // .then(async () => {
+  //   // some code
+  //   await Detail.bulkCreate(details);
+  //   await Category.bulkCreate(categories);
+  //   await UserRol.bulkCreate(rols);
 
-    const dbSuppliers = await Supplier.bulkCreate(suppliers);
-    const dbServices = await Service.bulkCreate(services);
-    const dbUsers = await User.bulkCreate(users);
+  //   const dbSuppliers = await Supplier.bulkCreate(suppliers);
+  //   const dbServices = await Service.bulkCreate(services);
+  //   const dbUsers = await User.bulkCreate(users);
 
-    for (let dbUser of dbUsers) {
-      await dbUser.setUserRol(roles[dbUser.userName] ?? 1);
-      await dbUser.setDetail(1);
-    }
+  //   for (let dbUser of dbUsers) {
+  //     await dbUser.setUserRol(roles[dbUser.userName] ?? 1);
+  //     await dbUser.setDetail(1);
+  //   }
 
-    for (let dbSupplier of dbSuppliers) {
-      await dbSupplier.setDetail(2);
-      suppliersIDs.push(dbSupplier.id);
-    }
+  //   for (let dbSupplier of dbSuppliers) {
+  //     await dbSupplier.setDetail(2);
+  //     suppliersIDs.push(dbSupplier.id);
+  //   }
 
-    for (let dbService of dbServices) {
-      let servTypeWords = dbService.serviceType.split(" ");
+  //   for (let dbService of dbServices) {
+  //     let servTypeWords = dbService.serviceType.split(" ");
 
-      // Agregamos servicios
-      if (servCat.hasOwnProperty(servTypeWords[0])) {
-        await dbService.setCategory(servCat[servTypeWords[0]]);
-      } else if (
-        ["espacios verdes", "árboles", "jardines"].some((palabra) =>
-          dbService.description.includes(palabra)
-        )
-      ) {
-        await dbService.setCategory(5);
-      } else {
-        await dbService.setCategory(14);
-      }
+  //     // Agregamos servicios
+  //     if (servCat.hasOwnProperty(servTypeWords[0])) {
+  //       await dbService.setCategory(servCat[servTypeWords[0]]);
+  //     } else if (
+  //       ["espacios verdes", "árboles", "jardines"].some((palabra) =>
+  //         dbService.description.includes(palabra)
+  //       )
+  //     ) {
+  //       await dbService.setCategory(5);
+  //     } else {
+  //       await dbService.setCategory(14);
+  //     }
 
-      // Asignamos servicios a suppliers
-      if (servTypeWords === "Techos") {
-        await dbService.addSupplier(suppliersIDs[3]);
-        await dbService.addSupplier(suppliersIDs[2]);
-      } else if (servTypeWords[2] === "Paredes") {
-        await dbService.addSupplier(suppliersIDs[1]);
-        await dbService.addSupplier(suppliersIDs[0]);
-      } else if (
-        servTypeWords[2] === "Hogares" ||
-        servTypeWords[2] === "Hospitales"
-      ) {
-        await dbService.addSupplier(suppliersIDs[0]);
-        await dbService.addSupplier(suppliersIDs[1]);
-      } else {
-        await dbService.addSupplier(suppliersIDs[2]);
-      }
-    }
+  //     // Asignamos servicios a suppliers
+  //     if (servTypeWords === "Techos") {
+  //       await dbService.addSupplier(suppliersIDs[3]);
+  //       await dbService.addSupplier(suppliersIDs[2]);
+  //     } else if (servTypeWords[2] === "Paredes") {
+  //       await dbService.addSupplier(suppliersIDs[1]);
+  //       await dbService.addSupplier(suppliersIDs[0]);
+  //     } else if (
+  //       servTypeWords[2] === "Hogares" ||
+  //       servTypeWords[2] === "Hospitales"
+  //     ) {
+  //       await dbService.addSupplier(suppliersIDs[0]);
+  //       await dbService.addSupplier(suppliersIDs[1]);
+  //     } else {
+  //       await dbService.addSupplier(suppliersIDs[2]);
+  //     }
+  //   }
 
-    await SupplierService.sync({ force: false });
-    const dbSupServices = await SupplierService.findAll({
-      include: [Supplier],
-    });
+  //   await SupplierService.sync({ force: false });
+  //   const dbSupServices = await SupplierService.findAll({
+  //     include: [Supplier],
+  //   });
 
-    for (let dbSS of dbSupServices) {
-      // Generamos aleatoriamente contratos por servicio
-      // Y sus respectivos reviews
-      const cant = parseInt(Math.random() * 4);
-      // console.log(dbSS.id, cant);
+  //   for (let dbSS of dbSupServices) {
+  //     // Generamos aleatoriamente contratos por servicio
+  //     // Y sus respectivos reviews
+  //     const cant = parseInt(Math.random() * 4);
+  //     // console.log(dbSS.id, cant);
 
-      for (let i = 0; i < cant; i++) {
-        const user = await User.findOne({ order: fn("random") });
+  //     for (let i = 0; i < cant; i++) {
+  //       const user = await User.findOne({ order: fn("random") });
+  //       const service = await Service.findOne({ 
+  //           order: fn("random") ,
+  //           include: {
+  //               model: Supplier,
+  //               where: {
+  //                   id :  dbSS.Supplier.id
+  //               }
+  //             },
+  //       });
 
-        const newContract = await Contract.create({
-          date: Date.now(),
-          UserId: user.id,
-          SupplierServiceId: dbSS.id,
-          SupplierId: dbSS.Supplier.id,
-        });
+  //       const newContract = await Contract.create({
+  //         date: Date.now(),
+  //         UserId: user.id,
+  //         SupplierServiceId: dbSS.id,
+  //         SupplierId: dbSS.Supplier.id,
+  //       });
 
-        const rating = parseFloat((Math.random() * 5).toFixed(1));
+  //       const rating = parseFloat((Math.random() * 5).toFixed(1));
 
-        const newReview = await Review.create({
-          comment: `comentario con rating ${rating}`,
-          rating,
-          UserId: user.id,
-          ContractId: newContract.id,
-          SupplierId: dbSS.Supplier.id,
-        });
-      }
-    }
-  })
+  //       const newReview = await Review.create({
+  //         comment: `comentario con rating ${rating}`,
+  //         rating,
+  //         UserId: user.id,
+  //         ContractId: newContract.id,
+  //         SupplierId: dbSS.Supplier.id,
+  //         ServiceId: service.dataValues.id
+  //       });
+  //     }
+  //   }
+  // })
   .then(() =>
     server.listen(PORT, () => {
       console.log("Server listening at " + PORT);

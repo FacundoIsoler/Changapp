@@ -1,0 +1,24 @@
+.card{
+  margin: 1%;
+    padding: 1%;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    color: black;
+    width: 16.7em;
+    justify-content: center;
+}
+
+.card:hover{
+  background-color: grey;
+  color: white;
+  outline: 1px solid white;
+}
+
+.container{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+}

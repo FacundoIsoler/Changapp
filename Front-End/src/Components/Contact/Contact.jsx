@@ -17,7 +17,7 @@ console.log(useForm())
     <div className={s.container}>
       <h2 className="h2">Contactenos</h2>   
     
-    <div className='card' style={{width:"40rem", left:"22rem", top:"2rem"}}>
+    <div className='card' style={{maxWidth:"40rem", background: "rgb(159, 158, 158)", border: "transparent"}}>
      
      <form onSubmit={handleSubmit(onSubmit)} className="row g-3">
   <div className="col-md-6">

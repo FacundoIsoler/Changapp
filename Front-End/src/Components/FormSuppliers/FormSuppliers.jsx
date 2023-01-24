@@ -58,7 +58,7 @@ export const FormSuppliers = () => {
       ?
       <div><h1>Inscribí a tu empresa</h1>
       
-            <div className='card' style={{ width: "40rem", left: "22rem", top: "2rem" }}>
+            <div className="s.Form" style={{ maxWidth: "40rem"}}>
       
             <form onSubmit={handleSubmit(onSubmit)} className="row g-3" enctype="multipart/form-data" id='supplier'>
       
@@ -159,7 +159,7 @@ export const FormSuppliers = () => {
                 </div>
       
                 <div className="col-md-12">
-                  <button type="submit" className="btn btn-primary">Enviar</button>
+                  <button type="submit" className="btn btn-primary" style={{background:"rgb(52, 51, 51)"}}>Enviar</button>
                 </div>
       
       

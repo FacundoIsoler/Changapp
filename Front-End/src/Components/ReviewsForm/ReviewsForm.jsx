@@ -5,12 +5,24 @@ import s from '../ReviewsForm/ReviewsForm.module.css';
 import { sendReview } from '../../actions';
 import { useParams } from 'react-router-dom';
 
-export default function ReviewsPost () {
+export default function ReviewsPost ({canReview}) {
 
   const supplierDetails = useSelector(state => state.supplierDetails)
-  const servs = supplierDetails.Services
+  const services = supplierDetails.Services
+
+  const selectOptions = [];
+  canReview.forEach( contract => {
+    services.forEach( service => {
+      if(service.SupplierService.id === contract.SupplierServiceId){
+        selectOptions.push([service, contract])
+      }
+    })
+  })
+
+ /*  console.log(selectOptions, "OPTIONS")
   
-  console.log(servs);
+  console.log(canReview, "Reviews")
+  console.log(userId, "ID") */
   
   const dispatch = useDispatch()
   
@@ -20,14 +32,15 @@ export default function ReviewsPost () {
   const [inputValues, setInputValues] = useState({
     rating: 1,
     comment: "",
-    serviceId: supplierId.id,
+    serviceId: 0,
+    contractId: 0
     //Aun hardcodeado
-    userId: 2,
-    serviceType: ""
   })
+
+  console.log(selectOptions, "SO")
   
   console.log(inputValues)
-  console.log(supplierId)
+  /* console.log(supplierId) */
 
   const inputHandlers = (e) => {
     setInputValues( prev => {
@@ -38,19 +51,23 @@ export default function ReviewsPost () {
     })
   }
 
-  const selectHandler = (e) => {
+  const selectHandler = (e, options) => {
+    const search = options.find( element => element[1].id === parseInt(e.target.value))
+    console.log(search[0].SupplierService.ServiceId, "SEARCH")
     if(e.target.value === "default"){
       setInputValues( prev => {
         return {
           ...prev,
-          serviceType: ""
+          serviceId: 0,
+          contractId: 0
         }
       })
     }else {
       setInputValues( prev => {
         return {
           ...prev,
-          serviceType: e.target.value
+          serviceId: search[0].SupplierService.ServiceId,
+          contractId: parseInt(e.target.value)
         }
       })
     }
@@ -64,13 +81,13 @@ export default function ReviewsPost () {
         <div className={s.services}>
 
             <h5>Servicio</h5>
-            <select onChange={(e) => selectHandler(e)}>
+            <select onChange={(e) => selectHandler(e, selectOptions)}>
 
             <option value='default'>-- Seleccione el servicio... --</option>
 
-            {servs ? servs.map( element => {
+            {selectOptions.length > 0 ? selectOptions.map( element => {
               
-              return <option value={element.serviceType}>{element.serviceType}</option>
+              return <option value={element[1].id}>{element[0].serviceType}</option>
 
             }) : null}
 
@@ -106,7 +123,9 @@ export default function ReviewsPost () {
           return {
             ...prev,
             rating: 1,
-            comment: ""
+            comment: "",
+            contractId: 0,
+            serviceId: 0
           }
         })
        }}/></div>

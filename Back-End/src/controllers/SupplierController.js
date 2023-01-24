@@ -13,7 +13,7 @@ const findQuery = {
   include: [
     { model: Review, attributes: [] },
     { model: Detail },
-    { model: Contract, attributes: [] },
+    { model: Contract/* , attributes: [] */ },
     {
       model: Service,
       attributes: [
@@ -22,6 +22,9 @@ const findQuery = {
         "description",
         "representative_image",
       ],
+      include: [
+        { model: Review}
+      ]
     },
   ],
 };
@@ -40,6 +43,7 @@ const aggregationQuery = {
     "Contracts.id",
     "Services.id",
     "Services->SupplierService.id",
+    "Services->Reviews.id"
   ],
 };
 
@@ -127,7 +131,7 @@ const add = async ({
 
 const update = async (
   id,
-  { name, cuit, description, logo, location, adress, phoneNumber, eMail }
+  { name, cuit, description, logo, location, adress, phoneNumber, eMail, isAuthorized }
 ) => {
   try {
     const updateSupplier = await Supplier.update(
@@ -136,6 +140,7 @@ const update = async (
         cuit,
         description,
         logo,
+        isAuthorized,
         Detail: { location, adress, phoneNumber, eMail },
       },
       { where: { id }, include: [Detail] }

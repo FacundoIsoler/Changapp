@@ -15,6 +15,7 @@
     border-radius: 15px;
     justify-content: flex-end;
     margin: 1% auto;
+    justify-content: space-evenly;
 }
 
 .rolTitle{
@@ -29,21 +30,23 @@
 
 .aside{
     background-color: white;
-    width: 20%;
+    max-width: 22%;
     height: fit-content;
     padding: 1%;
     margin: 1%;
     border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .categories{
-    width: 80%;
+    width: auto;
 }
 
 .navBar{
-    margin: auto;
+    margin: 0 5%;
     background-color: grey;
-    width: 90%;
     height: fit-content;
 }
 
@@ -51,6 +54,8 @@
     padding: 1%;
     height: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .navBar ul li{
@@ -93,4 +98,45 @@
     
     margin-left: 22em;
     margin-bottom: 0;
+}
+
+.modalOpen{
+    position: absolute;
+    top: 4em;
+    background-color: rgba(0, 0, 0, .5);
+    height: 1000px;
+}
+
+.modalClose{
+    position: absolute;
+    opacity: 0;
+}
+
+.cart{
+    border:none;
+    background-color: transparent;
+}
+
+@media(max-width:896px){
+    .container img{
+        width: 4em;
+        height: auto;   
+    }
+    .rolTitle{
+        font-size: unset;
+    }
+    .rol{
+        font-size: smaller;
+    }
+}
+
+@media(max-width:620px){
+    .navBar ul{
+        font-size: smaller;
+    }
+    .content{
+        width: 98%;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
 }

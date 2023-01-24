@@ -1,0 +1,63 @@
+.card {
+    /* border: 2em solid black; */
+    width: 20rem;
+    height: 23rem;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.background {
+    background-color: red;
+}
+
+.contenedor {
+    /* border: 2em solid blue; */
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+.contenedorPrecios {
+    display: flex;
+    padding: 1rem;
+
+}
+
+.contenedorPrecios h5 {
+    display: flex;
+    padding: 1rem;
+    font-size: xx-small;
+
+
+}
+
+.contenedorPrecios p {
+    display: flex;
+    font-size: small;
+    padding-top: 1.2rem;
+    align-items: flex-start;
+
+
+}
+
+.contenedor p {
+    padding-left: 5rem;
+}
+
+h5 {
+    text-align: center;
+}
+
+h6 {
+    width: fit-content;
+    position: relative;
+    font-size: smaller;
+    white-space: nowrap;
+}
+
+.pPrecios {
+    position: relative;
+    right: 4rem;
+}

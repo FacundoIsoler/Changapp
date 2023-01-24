@@ -8,7 +8,7 @@
     /* background-image: url('C:\Users\Nadia\Desktop\Mis Proyectos\E-commerce Services\Proyecto-Final---Henry\Front-End\src\Images\Footer.png'); */
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #000;
+    background-color: rgb(159, 158, 158);
     color:#fff;
     text-align: center;
   }
@@ -33,11 +33,11 @@
   color: black;
 }
 
-@media (max-width: 445px){
+/* @media (max-width: 445px){
   .carrusel {
     margin-left: 10%
   }
-}
+} */
 
 @media (min-width: 445px) and (max-width: 768px) {
   .carrusel{
